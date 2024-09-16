@@ -10,7 +10,7 @@ namespace SecureWebApi.Controllers
     public class ArticlesController : Controller
     {
         [AuthAttributes(Permissions.CreateArticle)]
-        [HttpGet("createArticle")]
+        [HttpPost("createArticle")]
         public ActionResult CreateArticle()
         {
             try
@@ -30,11 +30,24 @@ namespace SecureWebApi.Controllers
             return Ok();
         }
 
-
         [AuthAttributes(Permissions.EditArticle)]
-        [HttpGet("editArticle/{id}")]
-        public ActionResult EditArticle(int id)
+        [HttpPut("editArticle/{id}/{creatorId}")]
+        public ActionResult EditArticle(int id, string creatorId)
         {
+            var userIdClaim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "sub");
+
+            if (userIdClaim == null)
+            {
+                return Unauthorized();
+            }
+
+            var userId = userIdClaim.Value;
+
+            if (creatorId != userId) // proof of concept.. not proud of it.
+            {
+                return Forbid();
+            }
+
             try
             {
                 return RedirectToAction(nameof(Index));
@@ -46,7 +59,7 @@ namespace SecureWebApi.Controllers
         }
 
         [AuthAttributes(Permissions.DeleteArticle)]
-        [HttpPost("deleteArticle/{id}")]
+        [HttpDelete("deleteArticle/{id}")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteArticle(int id, IFormCollection collection)
         {
@@ -61,7 +74,7 @@ namespace SecureWebApi.Controllers
         }
 
         [AuthAttributes(Permissions.CreateComment)]
-        [HttpGet("createComment")]
+        [HttpPost("createComment")]
         public ActionResult CreateComment()
         {
             try
@@ -75,7 +88,7 @@ namespace SecureWebApi.Controllers
         }
 
         [AuthAttributes(Permissions.EditComment)]
-        [HttpGet("editComment/{id}")]
+        [HttpPut("editComment/{id}")]
         public ActionResult EditComment(int id)
         {
             try
@@ -89,7 +102,7 @@ namespace SecureWebApi.Controllers
         }
 
         [AuthAttributes(Permissions.DeleteComment)]
-        [HttpPost("deleteComment/{id}")]
+        [HttpDelete("deleteComment/{id}")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteComment(int id, IFormCollection collection)
         {

@@ -25,6 +25,15 @@ builder.Services.AddAuthentication(options =>
 {
     var jwtSettings = builder.Configuration.GetSection("Jwt").Get<JwtSettings>();
 
+    if (jwtSettings is null)
+    {
+        throw new InvalidOperationException("Jwt settings not found");
+    }
+    if (string.IsNullOrEmpty(jwtSettings.Key))
+    {
+        throw new InvalidOperationException("JWT signing key is not configured");
+    }
+
     options.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuer = true,
@@ -35,6 +44,7 @@ builder.Services.AddAuthentication(options =>
         ValidAudience = jwtSettings.Audience,
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key))
     };
+
 });
 
 var app = builder.Build();
