@@ -1,0 +1,6 @@
+@SecureWebAPI_HostAddress = http://localhost:5224
+
+GET {{SecureWebAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
