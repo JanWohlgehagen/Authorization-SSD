@@ -16,8 +16,8 @@ namespace SecureWebAPI.AuthAttributes
         public void OnAuthorization(AuthorizationFilterContext context)
         {
             var user = context.HttpContext.User;
-
-            if (user == null || !user.Claims.Any(c => c.Type == "Permission" && c.Value == _permission.ToString()))
+        
+            if (user == null || !user.Claims.Any(c => c.Type == "permissions" && c.Value == _permission.ToString()))
             {
                 context.HttpContext.Response.StatusCode = StatusCodes.Status403Forbidden;
                 context.Result = new Microsoft.AspNetCore.Mvc.ForbidResult();

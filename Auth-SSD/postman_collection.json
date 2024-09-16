@@ -1,0 +1,100 @@
+{
+	"info": {
+		"_postman_id": "42eafb1f-8c10-4d7f-8e78-315dc14540e0",
+		"name": "Token end points",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23009648"
+	},
+	"item": [
+		{
+			"name": "Get Editor Token",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "abc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3001/JWT/EditorToken",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"JWT",
+						"EditorToken"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Journalist Token",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3001/JWT/JournalistToken",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"JWT",
+						"JournalistToken"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Guest Token",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3001/JWT/UserToken",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"JWT",
+						"UserToken"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Guest Token",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3001/JWT/JournalistToken",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"JWT",
+						"JournalistToken"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
