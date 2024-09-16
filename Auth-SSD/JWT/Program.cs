@@ -1,3 +1,5 @@
+using JWT.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -8,6 +10,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+// Register the JwtTokenService as a singleton
+builder.Services.AddSingleton<JwtTokenService>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
