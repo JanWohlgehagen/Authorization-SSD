@@ -31,31 +31,24 @@ namespace SecureWebApi.Controllers
         }
 
         [AuthAttributes(Permissions.EditArticle)]
-        [HttpPut("editArticle/{id}/{creatorId}")]
-        public ActionResult EditArticle(int id, string creatorId)
+        [HttpPut("editArticle")]
+        public ActionResult EditArticle([FromQuery] int id, [FromQuery] string creatorId)
         {
-            var userIdClaim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "sub");
+            var userIdClaim = HttpContext.User.Claims.FirstOrDefault()?.Value;
 
             if (userIdClaim == null)
             {
                 return Unauthorized();
             }
-
-            var userId = userIdClaim.Value;
+            
+            var userId = userIdClaim;
 
             if (creatorId != userId) // proof of concept.. not proud of it.
             {
                 return Forbid();
             }
 
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return Ok();
-            }
+            return Ok();
         }
 
         [AuthAttributes(Permissions.DeleteArticle)]
