@@ -22,9 +22,9 @@ namespace SecureWebApi.Controllers
                 return Ok();
             }
         }
-
-        [HttpGet]
+        
         [AuthAttributes(Permissions.ReadArticle)]
+        [HttpGet]
         public ActionResult Index()
         {
             return Ok();
@@ -53,7 +53,6 @@ namespace SecureWebApi.Controllers
 
         [AuthAttributes(Permissions.DeleteArticle)]
         [HttpDelete("deleteArticle/{id}")]
-        [ValidateAntiForgeryToken]
         public ActionResult DeleteArticle(int id, IFormCollection collection)
         {
             try
@@ -96,7 +95,6 @@ namespace SecureWebApi.Controllers
 
         [AuthAttributes(Permissions.DeleteComment)]
         [HttpDelete("deleteComment/{id}")]
-        [ValidateAntiForgeryToken]
         public ActionResult DeleteComment(int id, IFormCollection collection)
         {
             try
